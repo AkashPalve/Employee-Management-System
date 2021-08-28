@@ -11,7 +11,16 @@
         
           }
             </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div>
@@ -30,6 +39,11 @@
 
 
 
+        
+      
+   
+
+ 
 
 
 
@@ -77,7 +91,8 @@ if (isset($_POST['view'])){
       <td><?php  echo $row->designation;?></td>
       <td><?php  echo $row->contact;?></td>
       <td><?php  echo $row->city;?></td>
-      <td><input type="button" class="btn btn-success" value="Edit">  <input type="button" class="btn btn-danger" value="Delete"></td>
+      <td><button type="button" class="btn btn-success editbtn">Edit</button> <button type="button" class="btn btn-danger deletebtn">Delete</button></td>
+      
     </tr>
     
      
@@ -88,6 +103,202 @@ if (isset($_POST['view'])){
 
     </table>
 </div>
+
+
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Employee Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+<form action="#" method="post">
+  <input type="hidden" name="update_id" id="id">
+      
+  <div class="mb-3">
+    <label for="exampleInputname" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+    </div>
+ 
+ <div class="mb-3">
+    <label for="exampleInputemail" class="form-label">Email</label>
+    <input type="text" class="form-control" id="email"  name="email" placeholder="Enter your email id">
+   </div>
+
+  <div class="mb-3">
+    <label for="exampleInputdesignation" class="form-label">Designation</label>
+    <input type="text" class="form-control" id="designation"  name="designation" placeholder="Enter your designation">
+   </div>
+
+  <div class="mb-3">
+    <label for="exampleInputcontact" class="form-label">Contact</label>
+    <input type="text" class="form-control" id="contact"  name="contact" placeholder="Enter your contact">
+   </div>
+
+  <div class="mb-3">
+    <label for="exampleInputcity" class="form-label">City</label>
+    <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city">
+   </div>
+
+</form>
+
+     
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" name="edit" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Employee Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+
+<form action="#" method="post">
+  <input type="hidden" name="id" id="id">
+      
+  <h4>Do you really want to delete this data?</h4>
+
+</form>
+
+     
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" name="delete" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<?php
+
+if (isset($_POST['edit'])) {
+
+$id = $_POST["id"];
+$name = $_POST["name"];
+$email = $_POST["email"];
+$designation = $_POST["designation"];
+$contact = $_POST["contact"];
+$city = $_POST["city"];
+
+
+global $wpdb;
+
+
+$wpdb->query("UPDATE employees SET contact='$contact',email='$email',city='$city',designation='$designation'");
+
+echo "<h1>Updated Successfully!</h1>";        
+
+}
+?>
+
+
+
+<?php
+
+    if (isset($POST['delete'])) {
+        $id = $_POST["id"];
+        global $wpdb;
+      
+
+        $wpdb->delete(employees, array('id' => $id));
+        
+
+        echo "<h1>Deleted Successfully!</h1>";
+
+    }
+
+?>
+
+
+
+<script>
+$(document).ready(function()
+{
+  $('.editbtn').on('click',function()
+  {
+    $('#editmodal').modal('show');
+    $tr=$(this).closest('tr');
+    var data=$tr.children("td").map(function()
+    {
+      return $(this).text();
+    }).get();
+    console.log(data);
+
+    $('#id').val(data[0]);
+    $('#name').val(data[1]);
+    $('#email').val(data[2]);
+    $('#designation').val(data[3]);
+    $('#contact').val(data[4]);
+    $('#city').val(data[5]);
+  });
+});
+</script>
+
+
+
+<script>
+$(document).ready(function()
+{
+  $('.deletebtn').on('click',function()
+  {
+    $('#deletemodal').modal('show');
+   $tr=$(this).closest('tr');
+    var data=$tr.children("td").map(function()
+    {
+      return $(this).text();
+    }).get();
+    console.log(data);
+
+    $('#id').val(data[0]);
+   
+  });
+});
+</script>
+
+
+
+
+
+
+
+
 
 
 

@@ -10,27 +10,27 @@
   <div class="w-50 p-3";>
 
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Name</label>
+    <label for="exampleInputname" class="form-label">Name</label>
     <input type="text" class="form-control"  name="name" placeholder="Enter your name">
     </div>
  
  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email</label>
+    <label for="exampleInputemail" class="form-label">Email</label>
     <input type="text" class="form-control"  name="email" placeholder="Enter your email id">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Designation</label>
+    <label for="exampleInputdesignation" class="form-label">Designation</label>
     <input type="text" class="form-control"  name="designation" placeholder="Enter your designation">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Contact</label>
+    <label for="exampleInputcontact" class="form-label">Contact</label>
     <input type="text" class="form-control"  name="contact" placeholder="Enter your contact">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">City</label>
+    <label for="exampleInputcity" class="form-label">City</label>
     <input type="text" class="form-control" name="city" placeholder="Enter your city">
    </div>
   
