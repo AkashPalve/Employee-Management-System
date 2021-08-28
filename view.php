@@ -6,11 +6,24 @@
             color: white;
              
           }
+          <script
+  <script> type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  $(function(){
+    $("#table").dataTable();
+  })
+  </script>
+  </script>
 
           #table{
         
           }
             </style>
+            <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
+  
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
+  
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -76,6 +89,12 @@ if (isset($_POST['view'])){
         <th>Actions</th>
       </tr>
       </thead>
+
+
+
+      
+
+
 
       <?php
 
@@ -153,18 +172,20 @@ if (isset($_POST['view'])){
     <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city">
    </div>
 
-</form>
-
-     
-
-      </div>
+   </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" name="edit" class="btn btn-primary">Save changes</button>
+        <button type="submit" name="edit" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
+</form>
+
+     
+
+      
 
 
 
@@ -185,22 +206,25 @@ if (isset($_POST['view'])){
 
 
 <form action="#" method="post">
-  <input type="hidden" name="id" id="id">
+  <label>Enter ID of employee you want to delete</label>
+  <input type="number" name="id" id="id">
       
   <h4>Do you really want to delete this data?</h4>
+
+  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="submit" name="delete" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </form>
 
      
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" name="delete" class="btn btn-primary">Yes</button>
-      </div>
-    </div>
-  </div>
-</div>
+      
 
 
 
@@ -210,7 +234,7 @@ if (isset($_POST['view'])){
 
 if (isset($_POST['edit'])) {
 
-$id = $_POST["id"];
+$id = $_POST["update_id"];
 $name = $_POST["name"];
 $email = $_POST["email"];
 $designation = $_POST["designation"];
@@ -220,8 +244,10 @@ $city = $_POST["city"];
 
 global $wpdb;
 
+//var_dump($_POST);
 
-$wpdb->query("UPDATE employees SET contact='$contact',email='$email',city='$city',designation='$designation'");
+
+$wpdb->query("UPDATE employees SET contact='$contact',name='$name',email='$email',city='$city',designation='$designation' WHERE id='$id'");
 
 echo "<h1>Updated Successfully!</h1>";        
 
@@ -232,12 +258,17 @@ echo "<h1>Updated Successfully!</h1>";
 
 <?php
 
-    if (isset($POST['delete'])) {
+    if (isset($_POST['delete'])) {
         $id = $_POST["id"];
+        
+       
         global $wpdb;
-      
+        //var_dump($_POST);
+        
+       
 
         $wpdb->delete(employees, array('id' => $id));
+
         
 
         echo "<h1>Deleted Successfully!</h1>";
@@ -245,6 +276,10 @@ echo "<h1>Updated Successfully!</h1>";
     }
 
 ?>
+
+
+<script> type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
 
 
 
@@ -291,6 +326,22 @@ $(document).ready(function()
   });
 });
 </script>
+
+
+<script>
+  $(function(){
+    $("#table").dataTable();
+  })
+
+  var table = $('#table').dataTable({
+   "aLengthMenu": [ [2, 4, 8, -1], [2, 4, 8, "All"] ],
+   "iDisplayLength": 5,        
+});
+  </script>
+
+  
+
+
 
 
 
