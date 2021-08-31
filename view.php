@@ -1,3 +1,7 @@
+<?php
+error_reporting(0);
+?>
+
 <html>
     <head>
         <style>
@@ -6,18 +10,15 @@
             color: white;
              
           }
+          
           <script
   <script> type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-  $(function(){
-    $("#table").dataTable();
-  })
+  
   </script>
   </script>
 
-          #table{
-        
-          }
+          
             </style>
             <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
             <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
@@ -42,7 +43,7 @@
 
     <form action="#" method="post">
 
-        <input type="submit" name="view" class="btn btn-info"  value="Display all employees"><br>
+        <input type="submit" name="view" class="btn btn-info " id="hello"  value="Display all employees"><br>
     
     </form>
 
@@ -73,7 +74,7 @@ if (isset($_POST['view'])){
        
     global $wpdb;
     
-    $result = $wpdb->get_results("SELECT * FROM employees");
+    $result = $wpdb->get_results("SELECT * FROM wp_usermeta");
     ?>
 
 <div class="container">          
@@ -104,7 +105,7 @@ if (isset($_POST['view'])){
 
 
   <tr>
-      <td><?php  echo $row->id;?></td>
+      <td><?php  echo $row->umeta_id;?></td>
       <td><?php  echo $row->name;?></td>
       <td><?php  echo $row->email;?></td>
       <td><?php  echo $row->designation;?></td>
@@ -234,7 +235,7 @@ if (isset($_POST['view'])){
 
 if (isset($_POST['edit'])) {
 
-$id = $_POST["update_id"];
+$umeta_id = $_POST["update_id"];
 $name = $_POST["name"];
 $email = $_POST["email"];
 $designation = $_POST["designation"];
@@ -247,9 +248,9 @@ global $wpdb;
 //var_dump($_POST);
 
 
-$wpdb->query("UPDATE employees SET contact='$contact',name='$name',email='$email',city='$city',designation='$designation' WHERE id='$id'");
+$wpdb->query("UPDATE wp_usermeta SET contact='$contact',name='$name',email='$email',city='$city',designation='$designation' WHERE umeta_id='$umeta_id'");
 
-echo "<h1>Updated Successfully!</h1>";        
+echo '<h2><script>alert("employee updated successfully")</script></h2>';        
 
 }
 ?>
@@ -259,19 +260,19 @@ echo "<h1>Updated Successfully!</h1>";
 <?php
 
     if (isset($_POST['delete'])) {
-        $id = $_POST["id"];
+        $umeta_id = $_POST["id"];
         
        
         global $wpdb;
-        //var_dump($_POST);
+       // var_dump($_POST);
         
        
 
-        $wpdb->delete(employees, array('id' => $id));
+        $wpdb->delete(wp_usermeta, array('umeta_id' => $umeta_id));
 
         
 
-        echo "<h1>Deleted Successfully!</h1>";
+        echo '<h2><script>alert("employee deleted successfully")</script></h2>';
 
     }
 
@@ -331,13 +332,34 @@ $(document).ready(function()
 <script>
   $(function(){
     $("#table").dataTable();
+  
   })
 
   var table = $('#table').dataTable({
    "aLengthMenu": [ [2, 4, 8, -1], [2, 4, 8, "All"] ],
-   "iDisplayLength": 5,        
+   "iDisplayLength": 5,
+
+
+
+      
 });
   </script>
+
+<script>
+$(document).ready(function(){
+  $("#hello").click(function(){
+    $(this).hide();
+  });
+});
+</script>
+
+
+
+
+
+
+
+
 
   
 
