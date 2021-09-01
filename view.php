@@ -68,13 +68,13 @@ error_reporting(0);
 <?php
 //echo "this is view";
 
-
-if (isset($_POST['view'])){
+ 
+   if (isset($_POST['view'])){
 
        
     global $wpdb;
     
-    $result = $wpdb->get_results("SELECT * FROM wp_usermeta");
+    $result = $wpdb->get_results("SELECT * FROM employees");
     ?>
 
 <div class="container">          
@@ -105,7 +105,7 @@ if (isset($_POST['view'])){
 
 
   <tr>
-      <td><?php  echo $row->umeta_id;?></td>
+      <td><?php  echo $row->id;?></td>
       <td><?php  echo $row->name;?></td>
       <td><?php  echo $row->email;?></td>
       <td><?php  echo $row->designation;?></td>
@@ -207,20 +207,17 @@ if (isset($_POST['view'])){
 
 
 <form action="#" method="post">
-  <label>Enter ID of employee you want to delete</label>
-  <input type="number" name="id" id="id">
-      
+
+
   <h4>Do you really want to delete this data?</h4>
 
-  </div>
+  <div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
         <button type="submit" name="delete" class="btn btn-primary">Yes</button>
       </div>
     </div>
-  </div>
-</div>
-
+  
 </form>
 
      
@@ -235,20 +232,20 @@ if (isset($_POST['view'])){
 
 if (isset($_POST['edit'])) {
 
-$umeta_id = $_POST["update_id"];
+$id = $_POST["update_id"];
 $name = $_POST["name"];
 $email = $_POST["email"];
 $designation = $_POST["designation"];
 $contact = $_POST["contact"];
 $city = $_POST["city"];
 
-
+//var_dump($_POST);
 global $wpdb;
 
-//var_dump($_POST);
 
 
-$wpdb->query("UPDATE wp_usermeta SET contact='$contact',name='$name',email='$email',city='$city',designation='$designation' WHERE umeta_id='$umeta_id'");
+
+$wpdb->query("UPDATE employees SET contact='$contact',name='$name',email='$email',city='$city',designation='$designation' WHERE id='$id'");
 
 echo '<h2><script>alert("employee updated successfully")</script></h2>';        
 
@@ -259,19 +256,19 @@ echo '<h2><script>alert("employee updated successfully")</script></h2>';
 
 <?php
 
-    if (isset($_POST['delete'])) {
-        $umeta_id = $_POST["id"];
-        
+    if (isset($_POST['delete'])) 
+    {
+
+       $id = $_POST['delete'];
+
+       //var_dump($_POST);
+
        
         global $wpdb;
-       // var_dump($_POST);
+      
+        $wpdb->delete(employees, array('id' => $id));
+        //$wpdb->query("DELETE FROM employees WHERE id='$id'");
         
-       
-
-        $wpdb->delete(wp_usermeta, array('umeta_id' => $umeta_id));
-
-        
-
         echo '<h2><script>alert("employee deleted successfully")</script></h2>';
 
     }
@@ -280,7 +277,7 @@ echo '<h2><script>alert("employee updated successfully")</script></h2>';
 
 
 <script> type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
 
 
 
@@ -347,15 +344,11 @@ $(document).ready(function()
 
 <script>
 $(document).ready(function(){
-  $("#hello").click(function(){
+  $("#hello").onclick(function(){
     $(this).hide();
   });
 });
 </script>
-
-
-
-
 
 
 

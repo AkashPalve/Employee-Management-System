@@ -36,6 +36,7 @@ function custom_admin_view()
 {
     //echo "<h1>Welcome to EMS</h1>";
     include_once PLUGIN_DIR_PATH."view.php";
+    
 }
 
 
