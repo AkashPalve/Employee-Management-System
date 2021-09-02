@@ -103,7 +103,7 @@ h3{
  
 
  <form action="#" method="post">
- <h3>Add User</h3>
+ <h3></h3>
   <div>
 
   <div class="mb-3">
@@ -152,6 +152,12 @@ $user_id = wp_insert_user( array(
   
 ));
 
+function add_role( $administrator, $display_name, $capabilities = array() ) {
+  if ( empty( $role ) ) {
+      return;
+  }
+  return wp_roles()->add_role( $administrator, $display_name, $capabilities );
+}
 
 
 

@@ -39,7 +39,7 @@ error_reporting(0);
 <body>
 <div>
 
-    <h2>View Employee Data</h2><br>
+    <h2></h2><br>
 
     <form action="#" method="post">
 
@@ -207,7 +207,8 @@ error_reporting(0);
 
 
 <form action="#" method="post">
-
+<label>Enter ID of employee you want to delete</label> 
+  <input type="number" name="id" id="id">
 
   <h4>Do you really want to delete this data?</h4>
 
