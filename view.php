@@ -39,27 +39,9 @@ error_reporting(0);
 <body>
 <div>
 
-    <h2></h2><br>
-
-    <form action="#" method="post">
-
-        <input type="submit" name="view" class="btn btn-info " id="hello"  value="Display all employees"><br>
-    
-    </form>
+    <center><h2>List of employees</h2> <center><br>
 
 </div>
-
-
-
-
-
-        
-      
-   
-
- 
-
-
 
 
 </body>
@@ -69,7 +51,7 @@ error_reporting(0);
 //echo "this is view";
 
  
-   if (isset($_POST['view'])){
+  
 
        
     global $wpdb;
@@ -118,7 +100,7 @@ error_reporting(0);
      
 <?php
     }
-}
+
 ?>
 
     </table>
