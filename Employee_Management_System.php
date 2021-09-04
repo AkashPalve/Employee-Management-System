@@ -27,7 +27,7 @@ function add_my_custom_menu()
     add_menu_page("customplugin","Employee_Management_System","manage_options","custom-plugin","custom_admin_view","dashicons-dashboard",6);
     add_submenu_page("custom-plugin","Add Employee","Add New Employee","manage_options","add-new","add_new_function");
     add_submenu_page("custom-plugin","Add Employee","Apply For Leave","manage_options","add-new1","add_new_function2");
-    add_submenu_page("custom-plugin","Add Employee","Accept Leave","manage_options","add-new2","add_new_function3");
+    add_submenu_page("custom-plugin","Add Employee","Approve/Reject Leave","manage_options","add-new2","add_new_function3");
 }
 
 add_action("admin_menu","add_my_custom_menu");
@@ -50,7 +50,7 @@ function add_new_function()
 function add_new_function2()
 {
     //echo "<h1>Update Employee</h1>";
-    include_once PLUGIN_DIR_PATH."leave.php";
+    include_once PLUGIN_DIR_PATH."applyleave.php";
 }
 
 

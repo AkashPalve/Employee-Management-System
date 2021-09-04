@@ -138,10 +138,9 @@ h3{
 </html>
 
 <?php
-//echo "this is insert";
 //global $wpdb;
 if(isset($_POST['insert']))
-
+{
 $user_id = wp_insert_user( array(
   'user_login' => $_POST['uname'],
   'user_pass' => $_POST['password'],
@@ -151,13 +150,9 @@ $user_id = wp_insert_user( array(
   
   
 ));
-
-function add_role( $administrator, $display_name, $capabilities = array() ) {
-  if ( empty( $role ) ) {
-      return;
-  }
-  return wp_roles()->add_role( $administrator, $display_name, $capabilities );
+echo '<h2><script>alert("user inserted successfully")</script></h2>';    
 }
+
 
 
 
@@ -224,5 +219,9 @@ function add_role( $administrator, $display_name, $capabilities = array() ) {
         
 
    // }
+
+   <?php
+echo "hello";
+   ?>
 
 
