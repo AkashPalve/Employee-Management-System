@@ -39,13 +39,11 @@ error_reporting(0);
 <body>
 <div>
 
-    <center><h2>List of employees</h2> <center><br>
+    <center><h2>List of Users</h2> <center><br>
 
 </div>
 
 
-</body>
-</html>
 
 <?php
 //echo "this is view";
@@ -56,7 +54,7 @@ error_reporting(0);
        
     global $wpdb;
     
-    $result = $wpdb->get_results("SELECT * FROM employees");
+    $result = $wpdb->get_results("SELECT * FROM wp_users");
     ?>
 
 <div class="container">          
@@ -64,12 +62,12 @@ error_reporting(0);
     <thead class="heading">
       <tr>
         <th>id</th>
-        <th>Name</th>
+        <th>User ID</th>
+        <th>Nicename</th>
         <th>Email</th>
-        <th>Designation</th>
-        <th>Contact</th>
-        <th>City</th>
-        <th>Actions</th>
+        <th>Display Name</th>
+        <th>Action</th>
+        
       </tr>
       </thead>
 
@@ -87,12 +85,11 @@ error_reporting(0);
 
 
   <tr>
-      <td><?php  echo $row->id;?></td>
-      <td><?php  echo $row->name;?></td>
-      <td><?php  echo $row->email;?></td>
-      <td><?php  echo $row->designation;?></td>
-      <td><?php  echo $row->contact;?></td>
-      <td><?php  echo $row->city;?></td>
+      <td><?php  echo $row->ID;?></td>
+      <td><?php  echo $row->user_login;?></td>
+      <td><?php  echo $row->user_nicename;?></td>
+      <td><?php  echo $row->user_email;?></td>
+      <td><?php  echo $row->display_name;?></td>
       <td><button type="button" class="btn btn-success editbtn">Edit</button> <button type="button" class="btn btn-danger deletebtn">Delete</button></td>
       
     </tr>
@@ -131,29 +128,26 @@ error_reporting(0);
   <input type="hidden" name="update_id" id="id">
       
   <div class="mb-3">
-    <label for="exampleInputname" class="form-label">Name</label>
+    <label for="exampleInputname" class="form-label">User Name</label>
     <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
     </div>
  
  <div class="mb-3">
-    <label for="exampleInputemail" class="form-label">Email</label>
+    <label for="exampleInputemail" class="form-label">User Nicename</label>
     <input type="text" class="form-control" id="email"  name="email" placeholder="Enter your email id">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputdesignation" class="form-label">Designation</label>
+    <label for="exampleInputdesignation" class="form-label">User Email</label>
     <input type="text" class="form-control" id="designation"  name="designation" placeholder="Enter your designation">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputcontact" class="form-label">Contact</label>
+    <label for="exampleInputcontact" class="form-label">User Registered</label>
     <input type="text" class="form-control" id="contact"  name="contact" placeholder="Enter your contact">
    </div>
 
-  <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">City</label>
-    <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city">
-   </div>
+ 
 
    </div>
       <div class="modal-footer">
@@ -334,6 +328,8 @@ $(document).ready(function(){
 </script>
 
 
+</body>
+</html>
 
 
 
