@@ -61,11 +61,11 @@ error_reporting(0);
   <table class="table table-condensed" id="table">
     <thead class="heading">
       <tr>
-        <th>id</th>
-        <th>User ID</th>
-        <th>Nicename</th>
+        <th>ID</th>
+        <th>username</th>
         <th>Email</th>
         <th>Display Name</th>
+        <th>User Registered</th>
         <th>Action</th>
         
       </tr>
@@ -87,9 +87,9 @@ error_reporting(0);
   <tr>
       <td><?php  echo $row->ID;?></td>
       <td><?php  echo $row->user_login;?></td>
-      <td><?php  echo $row->user_nicename;?></td>
       <td><?php  echo $row->user_email;?></td>
       <td><?php  echo $row->display_name;?></td>
+      <td><?php  echo $row->user_registered;?></td>
       <td><button type="button" class="btn btn-success editbtn">Edit</button> <button type="button" class="btn btn-danger deletebtn">Delete</button></td>
       
     </tr>
@@ -109,12 +109,12 @@ error_reporting(0);
 <!-- Button trigger modal -->
 
 
-<!-- Modal -->
+<!--Edit Modal -->
 <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Employee Data</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Edit User Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -125,26 +125,26 @@ error_reporting(0);
 
 
 <form action="#" method="post">
-  <input type="hidden" name="update_id" id="id">
+  <input type="hidden" name="update_id" id="ID">
       
   <div class="mb-3">
-    <label for="exampleInputname" class="form-label">User Name</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-    </div>
- 
- <div class="mb-3">
-    <label for="exampleInputemail" class="form-label">User Nicename</label>
-    <input type="text" class="form-control" id="email"  name="email" placeholder="Enter your email id">
+    <label for="exampleInputuserlogin" class="form-label">User Login</label>
+    <input type="text" class="form-control" id="user_login"  name="user_login" placeholder="">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputdesignation" class="form-label">User Email</label>
-    <input type="text" class="form-control" id="designation"  name="designation" placeholder="Enter your designation">
+    <label for="exampleInputuseremail" class="form-label">User Email</label>
+    <input type="text" class="form-control" id="user_email"  name="user_email" placeholder="">
+   </div>
+
+   <div class="mb-3">
+    <label for="exampleInputdisplayname" class="form-label">Display Name</label>
+    <input type="text" class="form-control" id="display_name"  name="display_name" placeholder="">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputcontact" class="form-label">User Registered</label>
-    <input type="text" class="form-control" id="contact"  name="contact" placeholder="Enter your contact">
+    <label for="exampleInputuserregistered" class="form-label">User Registered</label>
+    <input type="text" class="form-control" id="user_registered"  name="user_registered" placeholder="">
    </div>
 
  
@@ -166,13 +166,13 @@ error_reporting(0);
 
 
 
-
+<!--Edit Modal-->
 
 <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete Employee Data</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Delete User Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -184,7 +184,7 @@ error_reporting(0);
 
 <form action="#" method="post">
 <label>Enter ID of employee you want to delete</label> 
-  <input type="number" name="id" id="id">
+  <input type="number" name="id" id="ID">
 
   <h4>Do you really want to delete this data?</h4>
 
@@ -209,12 +209,11 @@ error_reporting(0);
 
 if (isset($_POST['edit'])) {
 
-$id = $_POST["update_id"];
-$name = $_POST["name"];
-$email = $_POST["email"];
-$designation = $_POST["designation"];
-$contact = $_POST["contact"];
-$city = $_POST["city"];
+$ID = $_POST["update_id"];
+$user_login = $_POST["user_login"];
+$user_email = $_POST["user_email"];
+$display_name = $_POST["display_name"];
+$user_registered = $_POST["user_registered"];
 
 //var_dump($_POST);
 global $wpdb;
@@ -222,9 +221,16 @@ global $wpdb;
 
 
 
-$wpdb->query("UPDATE employees SET contact='$contact',name='$name',email='$email',city='$city',designation='$designation' WHERE id='$id'");
+$wpdb->query("UPDATE wp_users SET user_login='$user_login',user_email='$user_email',display_name='$display_name',user_registered='$user_registered' WHERE ID='$ID'");
 
-echo '<h2><script>alert("employee updated successfully")</script></h2>';        
+//echo '<h2><script>alert("user updated successfully")</script></h2>';   
+
+/*echo '<script type="text/javascript">';
+echo 'setTimeout(function () { swal("SUCCESS!","updated successfully","success");';
+echo '}, 1000);</script>';*/
+
+echo '<script>window.location.reload()</script>';
+echo '<h2><script>alert("user updated successfully")</script></h2>';  
 
 }
 ?>
@@ -236,26 +242,30 @@ echo '<h2><script>alert("employee updated successfully")</script></h2>';
     if (isset($_POST['delete'])) 
     {
 
-       $id = $_POST['delete'];
+       $ID = $_POST['id'];
 
        //var_dump($_POST);
 
        
         global $wpdb;
       
-        $wpdb->delete(employees, array('id' => $id));
-        //$wpdb->query("DELETE FROM employees WHERE id='$id'");
+        $wpdb->delete(wp_users, array('ID' => $ID));
         
-        echo '<h2><script>alert("employee deleted successfully")</script></h2>';
+       // echo '<h2><script>alert("user deleted successfully")</script></h2>';
+       echo '<script type="text/javascript">';
+       echo 'setTimeout(function () { swal("SUCCESS!","User deleted successfully","success");';
+       echo '}, 1000);</script>';
+       
+       echo '<script>window.location.reload()</script>';
 
     }
 
 ?>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script> type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 <script>
@@ -271,12 +281,11 @@ $(document).ready(function()
     }).get();
     console.log(data);
 
-    $('#id').val(data[0]);
-    $('#name').val(data[1]);
-    $('#email').val(data[2]);
-    $('#designation').val(data[3]);
-    $('#contact').val(data[4]);
-    $('#city').val(data[5]);
+    $('#ID').val(data[0]);
+    $('#user_login').val(data[1])
+    $('#user_email').val(data[2]);
+    $('#display_name').val(data[3]);
+    $('#user_registered').val(data[4]);
   });
 });
 </script>
@@ -296,7 +305,7 @@ $(document).ready(function()
     }).get();
     console.log(data);
 
-    $('#id').val(data[0]);
+    $('#ID').val(data[0]);
    
   });
 });
@@ -326,6 +335,8 @@ $(document).ready(function(){
   });
 });
 </script>
+
+
 
 
 </body>
