@@ -14,10 +14,16 @@ error_reporting(0);
 h3{
   display:flex;
 	justify-content: center;
+  padding-bottom:15px;
 }
 
 .form1{
   width:100%;
+}
+
+#btn{
+     height: 40px;
+     width: 400px;
 }
   }
   </style>
@@ -103,8 +109,8 @@ h3{
  
 
  <form action="#" method="post">
- <h3></h3>
-  <div>
+ <h3>Add User</h3>
+  <div class="p-3 my-3 border">
 
   <div class="mb-3">
     <label for="exampleInputname" class="form-label">Username</label>
@@ -112,30 +118,31 @@ h3{
     </div>
  
  <div class="mb-3">
-    <label for="exampleInputemail" class="form-label2">Password</label>
+    <label for="exampleInputpassword" class="form-label2">Password</label>
     <input type="password" class="form-control"  name="password" placeholder="Enter your password">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputdesignation" class="form-label3">Email</label>
+    <label for="exampleInputemail" class="form-label3">Email</label>
     <input type="email" class="form-control"  name="email" placeholder="Enter your email">
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputcontact" class="form-label4">Display Name</label>
+    <label for="exampleInputdisplayname" class="form-label4">Display Name</label>
     <input type="text" class="form-control"  name="dname" placeholder="Enter display name">
    </div>
 
-   <button type="submit" class="btn btn-success" name="insert">Add User</button>
+   <button type="submit" class="btn btn-success" id="btn" name="insert">Add User</button>
+  
 </form>
  </div>
 </div>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-</body>
+
 </head>
-</html>
+
 
 <?php
 //global $wpdb;
@@ -150,8 +157,14 @@ $user_id = wp_insert_user( array(
   
   
 ));
-echo '<h2><script>alert("user inserted successfully")</script></h2>';    
+//echo '<h2><script>alert("user inserted successfully")</script></h2>';   
+echo '<script type="text/javascript">';
+echo 'setTimeout(function () { swal("SUCCESS!","User Inserted Successfully","success");';
+echo '}, 1000);</script>';
+
 }
+
+
 
 
 
@@ -210,18 +223,14 @@ echo '<h2><script>alert("user inserted successfully")</script></h2>';
 
 
 */
-
-
+// }
+?>
       
 
         
-
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         
 
-   // }
-
-   <?php
-echo "hello";
-   ?>
-
-
+   
+   </body>
+   </html>
