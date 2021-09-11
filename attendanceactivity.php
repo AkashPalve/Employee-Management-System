@@ -76,7 +76,13 @@ if (isset($_POST['checkin']))
             )
         );
 
-        echo '<h2><script>alert("Successfully checked in")</script></h2>';  
+        //echo '<h2><script>alert("Successfully checked in")</script></h2>'; 
+        
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("SUCCESS!","Successfully checked in","success");';
+        echo '}, 1000);</script>';
+      
+
 
 }
 
@@ -102,7 +108,10 @@ if (isset($_POST['checkout']))
     $wpdb->query("UPDATE $table_name SET checkout='$checkout'  WHERE name='$name'");
 
 
-        echo '<h2><script>alert("Successfully checked out")</script></h2>';
+        //echo '<h2><script>alert("Successfully checked out")</script></h2>';
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("SUCCESS!","Successfully checked out","success");';
+        echo '}, 1000);</script>';
 
 }
 
@@ -121,10 +130,14 @@ if (isset($_POST['activity']))
     
  global $wpdb;
     
- $result = $wpdb->get_results("SELECT * FROM activity");
+ //$result = $wpdb->get_results("SELECT * FROM activity");
+
+$result = $wpdb->get_results("SELECT `name`, checkin, checkout, TIMESTAMPDIFF(HOUR,checkin, checkout) AS difference FROM activity");
+ //SELECT id, departure, arrival, TIMESTAMPDIFF(SECOND, departure, arrival) AS difference FROM travel;
  ?>
     <br><br>  
-<table class="table table-condensed" id="table">
+<table class="table table-hover" id="table">
+    <div class="container">
  <thead class="heading">
    <tr>
     
@@ -132,10 +145,11 @@ if (isset($_POST['activity']))
      <th>Name</th>
      <th>Check In Time</th>
      <th>Check Out Time</th>
+     <th>Worked Hours</th>
    </tr>
    </thead>
 
-
+</div>
 
    
 
@@ -146,16 +160,17 @@ if (isset($_POST['activity']))
  foreach ($result as $row) {
      
  ?>
-
+<div class="container">
 
 <tr>
    
    <td><?php  echo $row->name;?></td>
    <td><?php  echo $row->checkin;?></td>
    <td><?php  echo $row->checkout;?></td>
+   <td><?php  echo $row->difference;?></td>
  </tr>
  
-  
+ </div>
 <?php
  }
 
@@ -163,6 +178,6 @@ if (isset($_POST['activity']))
 
  </table>
 
- <?php
-echo "hello";
- ?>
+ <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
