@@ -5,130 +5,94 @@ error_reporting(0);
 <html>
 <head>
 <style>
- input[type=text], select, textarea{
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: vertical;
+  .form-center {
+	display:flex;
+	justify-content: center;
+  margin-top:50px;
 }
 
-/* Style the label to display next to the inputs */
-label {
-  padding: 12px 12px 12px 0;
-  display: inline-block;
+h3{
+  display:flex;
+	justify-content: center;
+  padding-bottom:15px;
 }
 
-/* Style the submit button */
-input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
+.form1{
+  width:100%;
 }
 
-/* Style the container */
-.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
+#btn{
+     height: 38px;
+     width: 400px;
 }
-
-/* Floating column for labels: 25% width */
-.col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
-}
-
-/* Floating column for inputs: 75% width */
-.col-75 {
-  float: left;
-  width: 75%;
-  margin-top: 6px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-  .col-25, .col-75, input[type=submit] {
-    width: 100%;
-    margin-top: 0;
+  #sel{
+    width:400px;
+    height:34px;
   }
-}
+
+  #ls{
+    height:34px;
+  }
+
+  #le{
+    height:34px;
+  }
   </style>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 
-<body>
-<h2> Request a leave </h2>
-<div class="container">
+
+
  
-  <form action="#" method="post">
-    <div class="row">
-      <div class="col-25">
-        <label for="name">Name</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="fname" name="name" placeholder="Your full name..">
-      </div>
-    </div><br>
-    <div class="row">
-      <div class="col-25">
-        <label for="empid">Employee ID</label>
-      </div>
-      <div class="col-75">
-        <input type="number" id="" name="empid" placeholder="Your Employee ID">
-      </div>
+
+<body>
+
+
+
+<div class=form-center>
+ 
+
+ <form action="#" method="post">
+ <h3>Apply For Leave</h3>
+  <div class="p-3 my-3 border">
+
+  <div class="mb-3">
+    <label for="exampleInputname" class="form-label">Name</label>
+    <input type="text" class="form1"  name="name" placeholder="Enter your name">
     </div>
-    <div class="row">
-      <div class="col-25">
-        <label for="leavetype">Leave Type</label>
-      </div>
-      <div class="col-75">
-        <select id="country" name="leavetype">
-        <option value="select">Select</option>
+ 
+ <div class="mb-3">
+    <label for="exampleInputpassword" class="form-label2">Employee ID</label>
+    <input type="number" class="form-control"  name="empid" placeholder="Enter your employee id">
+   </div>
+
+  <div class="mb-3">
+    <label for="exampleInputemail" class="form-label3">Leave Type</label><br>
+    <select id="sel" name="leavetype">
+        <option value="select" id="">Select</option>
           <option value="paid leave">Paid leave</option>
           <option value="sick leave">Sick leave</option>
           <option value="casual leave">Casual leave</option>
         </select>
-      </div>
-    </div>
+   </div>
 
-    <div class="row">
-      <div class="col-25">
-        <label for="leavestart">Leave Start</label>
-      </div>
-      <div class="col-75">
-        <input type="date" id="" name="leavestart" placeholder="">
-      </div>
-    </div>
+  <div class="mb-3">
+    <label for="exampleInputLeaveStart"  class="form-label4">Leave Start</label>
+    <input type="date" class="form-control" id="ls" name="leavestart" placeholder="">
+   </div>
 
-    <div class="row">
-      <div class="col-25">
-        <label for="leavestart">Leave End</label>
-      </div>
-      <div class="col-75">
-        <input type="date" id="" name="leaveend" placeholder="">
-      </div>
-    </div>
-   
-    <div class="row">
-      <input type="submit" name='request' value="Submit">
-      
-    </div>
-  </form>
-</div>
+   <div class="mb-3">
+    <label for="exampleInputLeaveEnd"  class="form-label4">Leave End</label>
+    <input type="date" class="form-control" id="le"  name="leaveend" placeholder="">
+   </div>
+
+
+   <button type="submit" class="btn btn-success" id="btn" name="request">Submit</button>
+   </div>
+</form>
+ </div>
+
 
 </body>
 </html>
@@ -151,7 +115,7 @@ if (isset($_POST['request']))
 
     global $wpdb;
 
-    $wpdb -> insert(applyleave,
+    $wpdb -> insert(leaveapply,
         array(
             'name' => $name,
             'emp_id'=>$emp_id,
@@ -162,7 +126,11 @@ if (isset($_POST['request']))
             )
         );
 
-        echo '<h2><script>alert("Successfully applied for leave")</script></h2>';  
+        //echo '<h2><script>alert("Successfully applied for leave")</script></h2>';  
+        echo '<script type="text/javascript">';
+        echo 'setTimeout(function () { swal("SUCCESS!","Successfully applied for leave","success");';
+        echo '}, 1000);</script>';
+
 
 }
 
@@ -170,47 +138,16 @@ if (isset($_POST['request']))
 
 ?>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
 
 <?php
-    
-    global $wpdb;
-    
-    $result = $wpdb->get_results("SELECT status FROM employees WHERE status='$status");
-
- if($row->status==1)
- {
-   echo "Your leave is accepted";
- }
-
- else{
-   echo "Your leave is Rejected";
- }
-?>
-
-
-<html>
-<?php
+if (isset($_POST['login']))
+{
+  $name=$_POST['name'];
+  $email=$_POST['email'];
   
+}
 ?>
-
-<table class="table">
-  <thead>
-    <tr>
-      
-      <th scope="col">Name</th>
-      <th scope="col">Leave Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach($result as $row){ ?>
-    <tr>
-    
-      <td><?php echo $row->name ?></td>
-      <td><?php echo $row->status ?></td>
-    </tr>
-   <?php
-    }
-   ?>
-  </tbody>
-</table>
-</html>
