@@ -4,65 +4,87 @@ error_reporting(0);
 
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
 
 <style>
-.name{
-    padding-right: 5px;
+  .form-center {
+	display:flex;
+	justify-content: center;
+  margin-top:50px;
 }
 
-.check{
-    padding-right: 70px;
+h3{
+  display:flex;
+	justify-content: center;
+  padding-bottom:15px;
 }
 
-.check1{
-    padding-right: 58px;
+.form1{
+  width:100%;
 }
-#name1{
-    
-    width:205px;
+
+#co{
+    height:35px;
 }
-    </style>
+
+#ci{
+    height:35px;
+}
+
+#btn3{
+    position:absolute;
+     top:0; 
+     right:0;
+     margin-top:30px;
+     margin-right:30px;
+}
+</style>
 </head>
 
 <body>
-    <div class="container">
-    <h3> User Activity </h3>
-</div>
-<div class="container" style="padding-top: 2em;">
+   
+<div class=form-center>
+ 
+
+ <form action="#" method="post">
+ <h3>Attendance Log</h3>
+  <div class="p-3 my-3 border">
+
+  <div class="mb-3">
+    <label for="exampleInputname" class="form-label">Name</label>
+    <input type="text" class="form1"  name="name" placeholder="Enter your name" required>
+    </div>
+
+    <div class="mb-3">
+    <label for="exampleInputname" class="form-label">Check In</label>
+    <input type="datetime-local" class="form1" id="ci" name="datetime1" placeholder="">
+    </div>
+
+    <div class="mb-3">
+    <label for="exampleInputname" class="form-label">Check Out</label>
+    <input type="datetime-local" class="form1" id="co"  name="datetime" placeholder="">
+    </div>
+
+   <button type="submit" class="btn btn-success" id="btn1" name="checkin">Check In</button>
+   <button type="submit" class="btn btn-success" id="btn2" name="checkout">Check Out</button>
+   
+   </div>
+  </form>
+  
+  </div>
 
 
-<form action="#" method="post">
-
-
-<label class="name">Name of Employee</label>
-<input type="name" name="name" id="name1"><br><br>
-
-<label class="check">Check In  </label>
-<input type="datetime-local" name="datetime1"><br><br>
-
-<label class="check1">Check Out  </label>
-<input type="datetime-local" name="datetime"><br><br>
-
-
-<button type="submit" name="checkin" class="btn btn-success" id="btn1">Check In</button>
-<button type="submit" name="checkout" class="btn btn-success" id="btn2">Check Out</button>
-<button type="submit" name="activity" class="btn btn-info">Show Activity</button>
-
-</form>
-
-</div>
-
-
+  <form action="#" method="post">
+  <button type="submit" class="btn btn-primary" id="btn3" name="activity">Check Activity</button>
+  </form>
+</body>
 <?php 
 
 if (isset($_POST['checkin']))
 {
    
-
-
-
-     $name = $_POST['name'];
+    $name = $_POST['name'];
     $checkin = $_POST['datetime1'];
     global $wpdb;
     //var_dump($_POST);
