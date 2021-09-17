@@ -25,85 +25,18 @@ h3{
      height: 40px;
      width: 400px;
 }
-  }
+
+
+  
   </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
-
-  <body>
-
-  
- <!-- <form action="#" method="post">
-  <div class="w-50 p-3";>
-
-  <div class="mb-3">
-    <label for="exampleInputname" class="form-label">Name</label>
-    <input type="text" class="form-control"  name="name" placeholder="Enter your name">
-    </div>
  
- <div class="mb-3">
-    <label for="exampleInputemail" class="form-label">Email</label>
-    <input type="text" class="form-control"  name="email" placeholder="Enter your email id">
-   </div>
-
-  <div class="mb-3">
-    <label for="exampleInputdesignation" class="form-label">Designation</label>
-    <input type="text" class="form-control"  name="designation" placeholder="Enter your designation">
-   </div>
-
-  <div class="mb-3">
-    <label for="exampleInputcontact" class="form-label">Contact</label>
-    <input type="text" class="form-control"  name="contact" placeholder="Enter your contact">
-   </div>
-
-  <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">City</label>
-    <input type="text" class="form-control" name="city" placeholder="Enter your city">
-   </div>
-
-   <!--<div class="mb-3">
-    <label for="exampleInputcity" class="form-label">Username</label>
-    <input type="text" class="form-control" name="user_login" placeholder="Enter your UserID">
-   </div>
-
-   <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">Password</label>
-    <input type="password" class="form-control" name="user_pass" placeholder="Enter your password">
-   </div>
-
-   <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">User nicename</label>
-    <input type="text" class="form-control" name="user_nicename" placeholder="Enter your nicename">
-   </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
   
-   <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">User Email</label>
-    <input type="email" class="form-control" name="user_email" placeholder="Enter user email">
-   </div>
+<body>
 
-   <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">User URL</label>
-    <input type="url" class="form-control" name="user_url" placeholder="Enter user_url">
-   </div>
 
-   <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">User Registered</label>
-    <input type="datetime" class="form-control" name="user_registered" placeholder="">
-   </div>
-
-   <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">User status</label>
-    <input type="number" class="form-control" name="user_status" placeholder="Enter user_status">
-   </div>
-
-   <div class="mb-3">
-    <label for="exampleInputcity" class="form-label">display name</label>
-    <input type="text" class="form-control" name="display_name" placeholder="Ente your display name">
-   </div> 
-
-  <button type="submit" class="btn btn-success" name="insert">Add Employee</button>
-</form>
- </div> -->
  
  <div class=form-center>
  
@@ -114,123 +47,153 @@ h3{
 
   <div class="mb-3">
     <label for="exampleInputname" class="form-label">Username</label>
-    <input type="text" class="form1"  name="uname" placeholder="Enter your username">
+    <input type="text" class="form1"  name="uname" placeholder="Enter your username" required>
     </div>
  
  <div class="mb-3">
     <label for="exampleInputpassword" class="form-label2">Password</label>
-    <input type="password" class="form-control"  name="password" placeholder="Enter your password">
+    <input type="password" class="form-control" id="pswd1" name="password" placeholder="Enter your password" required>
    </div>
+
+   <div class="mb-3">
+    <label for="exampleInputconfirmpassword" class="form-label4">Confirm Password</label>
+    <input type="password" class="form-control"  id="pswd2" onchange="matchPassword()" name="confirmpassword" placeholder="Confirm your password" required >
+  </div>
 
   <div class="mb-3">
     <label for="exampleInputemail" class="form-label3">Email</label>
-    <input type="email" class="form-control"  name="email" placeholder="Enter your email">
+    <input type="email" class="form-control"  name="email" placeholder="Enter your email" required>
    </div>
 
-  <div class="mb-3">
-    <label for="exampleInputdisplayname" class="form-label4">Display Name</label>
-    <input type="text" class="form-control"  name="dname" placeholder="Enter display name">
-   </div>
-
-   <button type="submit" class="btn btn-success" id="btn" name="insert">Add User</button>
+  
+<button type="submit" class="btn btn-primary"  id="btn" name="insert">Add User</button>
   
 </form>
  </div>
-</div>
 
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
-</head>
+ <?php
 
 
-<?php
-//global $wpdb;
-if(isset($_POST['insert']))
+if (isset($_POST['insert']))
 {
-$user_id = wp_insert_user( array(
-  'user_login' => $_POST['uname'],
-  'user_pass' => $_POST['password'],
-  'user_email' => $_POST['email'],
-  'display_name' => $_POST['dname'],
+
+  $userlogin = $_POST['uname'];
+  $password = $_POST['password'];
+  $password1 = $_POST['confirmpassword'];
+  $email = $_POST['email'];
+
+  if ($userlogin=="")
+{
+  echo '<script> alert("Username cannot be empty") </script>';
+}
+
+elseif ($password=="")
+{
+  echo '<script> alert("password cannot be empty") </script>';
+}
+
+elseif ($password1=="")
+{
+  echo '<script> alert("confirm password cannot be empty") </script>';
+}
+
+
+elseif($email=="")
+{
+  echo '<script> alert("email cannot be empty") </script>';
+}
+
+
+elseif ($user_id = ( $_POST['uname'] ))
+if ( username_exists( $user_id ) ) {
+  
+echo '<script type="text/javascript"> alert("Username already exists! Try another one");</script>';
+    
+}
+
+elseif ( strlen( $_POST['password'] ) <= 8 )
+{
+  echo '<script> alert("Your password is weak! Try Another one.") </script>';
    
-  
-  
-));
-//echo '<h2><script>alert("user inserted successfully")</script></h2>';   
-echo '<script type="text/javascript">';
-echo 'setTimeout(function () { swal("SUCCESS!","User Inserted Successfully","success");';
-echo '}, 1000);</script>';
+}
+
+elseif($email = $_POST ["email"] ) 
+{
+$pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^";  
+if (!preg_match ($pattern, $email) )
+{
+  echo '<script> alert("Enter valid Email ID") </script>';
+}
+
+else if(isset($_POST['insert']))
+ {
+ $user_id = wp_insert_user( array(
+   'user_login' => $_POST['uname'],
+   'user_pass' => $_POST['password'],
+   'user_email' => $_POST['email'],
+ 
+   ));
+
+  echo '<script type="text/javascript">';
+  echo 'setTimeout(function () { swal("SUCCESS!","User Inserted Successfully","success");';
+  echo '}, 100);</script>';
+
+
+}
 
 }
 
 
 
+}//mainif
+
+
+ /* global $wpdb;
+  $result = $wpdb->get_results("SELECT * FROM wp_users WHERE user_login = '$userlogin' , user_pass = '$password' ,user_email = $email");
+  if($userlogin=="")
+  {
+    echo '<script> alert("Username cannot be empty"); <script>';
+  }
+
+  elseif($password==""){
+    echo '<script> alert("Username cannot be empty"); <script>';
+  }
+
+  elseif($email==""){
+    echo '<script> alert("email cannot be empty"); <script>';
+  }*/
 
 
 
-   /* if (isset($_POST['insert'])) {
-
-        global $wpdb;
-        
-        $name = $_POST["name"];
-        $email = $_POST["email"];
-        $designation = $_POST["designation"];
-        $contact = $_POST["contact"];
-        $city = $_POST["city"];  
-
-       /* $user_login = $_POST["user_login"];
-        $user_pass = $_POST["user_pass"];
-       
-        $user_pass = wp_hash_password("user_pass");
-        
-        $user_nicename=$_POST["user_nicename"];
-        $user_email=$_POST["user_email"];
-        $user_url=$_POST["user_url"];
-        $user_registered=$_POST["user_registered"];
-        $user_status=$_POST["user_status"];
-        $display_name=$_POST["display_name"];  */
-
-
-        
-        //var_dump($_POST);
-       /* $wpdb -> insert(wp_usermeta,
-        array(
-            'name' => $name,
-            'email' => $email,
-            'designation' => $designation,
-            'contact' => $contact,
-            'city' => $city,          
-            )
-        );
 
 
 
-       /* $wpdb -> insert(wp_users,
-        array(
-            'user_login' => $user_login,
-            'user_pass' => $user_pass,
-            'user_nicename' => $user_nicename,
-            'user_email' => $user_email,
-            'user_url' => $user_url,
-            'user_registered' => $user_registered,
-            'user_status' => $user_status,
-            'display_name' => $display_name,       
-            )
-        );   */
-
-/*
-
-
-*/
-// }
 ?>
+
+
       
 
-        
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        
-
+<script>  
+function matchPassword() {  
+  var pw1 = document.getElementById("pswd1").value;
+  var pw2 = document.getElementById("pswd2").value;  
+  if(pw1 == pw2)  
+  {   
    
-   </body>
-   </html>
+  } 
+  else 
+  {  
+    alert("password did not match! Enter correct password");
+  }  
+}  
+</script>  
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
