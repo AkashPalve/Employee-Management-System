@@ -12,12 +12,9 @@ error_reporting(0);
 
         }
 
-        </script>
+       
     </style>
-    <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
-
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -34,17 +31,17 @@ error_reporting(0);
 <body>
     <?php
     global $wpdb;
-    $result = $wpdb->get_results("SELECT * FROM applyleave");
+    $result = $wpdb->get_results("SELECT * FROM leaveapply");
     ?>
     <div class="container" style="padding-top: 5em;">
-        <table class="table table-condensed" id="table">
+        <table class="table table-condensed" id="table1">
             <thead class="heading">
                 <tr>
                     <th>Employee ID</th>
                     <th>Name</th>
                     <th>Leave Type</th>
-                    <th>Leave Start Date</th>
-                    <th>Leave End Date</th>
+                    <th>Leave From</th>
+                    <th>Leave To</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -62,14 +59,16 @@ error_reporting(0);
                         <form method="post" action="#">
                             <input type="hidden" name="emp_id" value='<?php echo $row->emp_id; ?>'>
                             <?php
-                            if ($row->status == 1) {
-                                echo "<button type='submit' class='btn btn-danger' name='approve' value='0'>Reject</button>";
-                            } else {
-                                echo "<button type='submit' class='btn btn-primary' name='approve' value='1'>Accept</button>";
+                            if ($row->status == 0) 
+                            {
+                                echo "<button type='submit' class='btn btn-danger' name='approve' value='1'>Reject</button>";
+                            } else 
+                            {
+                                echo "<button type='submit' class='btn btn-primary' name='approve' value='0'>Approve</button>";
                             }
                             ?>
                         </form>
-                    <td>
+                        </td>
                 </tr>
             <?php
             }
@@ -81,17 +80,53 @@ error_reporting(0);
 
             <?php
 
-           // var_dump($_POST);
-            if (isset($_POST['approve'])) {
+           
+            if (isset($_POST['approve'])) 
+            {
                 global $wpdb;
-//                $approve_status = $_POST['approve'];
+             // $approve_status = $_POST['approve'];
                 $approve_status = $_POST['approve'];
                 $emp_id = $_POST['emp_id'];
-                $table_name = "applyleave";
+                $table_name = "leaveapply";
                 $wpdb->update($table_name, array('status' => strval($approve_status)), array('emp_id' => strval($emp_id)));
+                echo '<script>window.location.reload()</script>';
+
             }
 
             ?>
-</body>
+
+<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+
+<script>            
+
+$(document).ready( function () {
+    $('#table1').DataTable({
+      "pagingType" : "full_numbers",
+      "lengthMenu" : [
+          [5,10,25,50,-1],
+          [5,10,25,50,"All"]
+      ],
+      responsive : true,
+      language : {
+          search : "_INPUT_",
+          searchPlaceholder : "Search Records",
+      }
+
+    });
+} );
+</script>
+
+
+ </body>
 
 </html>
+
+
+
+
+
+
+
+
