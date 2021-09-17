@@ -16,7 +16,7 @@ error_reporting(0);
 
 h3{
   display:flex;
-	justify-content: center;
+  justify-content: center;
   padding-bottom:15px;
 }
 
@@ -32,17 +32,18 @@ h3{
     height:35px;
 }
 
-#btn3{
-    position:absolute;
-     top:0; 
-     right:0;
-     margin-top:30px;
-     margin-right:30px;
-}
+
+
+
+
+
+
+
 </style>
 </head>
 
 <body>
+
    
 <div class=form-center>
  
@@ -57,13 +58,26 @@ h3{
     </div>
 
     <div class="mb-3">
-    <label for="exampleInputname" class="form-label">Check In</label>
-    <input type="datetime-local" class="form1" id="ci" name="datetime1" placeholder="">
+    <label for="exampleInputname" class="form-label">Check In Date</label>
+    <input type="date" class="form1" id="ci" name="date" placeholder="">
     </div>
 
+    
     <div class="mb-3">
-    <label for="exampleInputname" class="form-label">Check Out</label>
-    <input type="datetime-local" class="form1" id="co"  name="datetime" placeholder="">
+    <label for="exampleInputname" class="form-label">Check In Time</label>
+    <input type="time" class="form1" id="ci" name="time" placeholder="">
+    </div>
+
+
+    <div class="mb-3">
+    <label for="exampleInputname" class="form-label">Check Out Date</label>
+    <input type="date" class="form1" id="co"  name="date1" placeholder="">
+    </div>
+
+    
+    <div class="mb-3">
+    <label for="exampleInputname" class="form-label">Check Out Time</label>
+    <input type="time" class="form1" id="ci" name="time1" placeholder="">
     </div>
 
    <button type="submit" class="btn btn-success" id="btn1" name="checkin">Check In</button>
@@ -75,37 +89,41 @@ h3{
   </div>
 
 
-  <form action="#" method="post">
-  <button type="submit" class="btn btn-primary" id="btn3" name="activity">Check Activity</button>
-  </form>
-</body>
+
 <?php 
 
 if (isset($_POST['checkin']))
 {
    
     $name = $_POST['name'];
-    $checkin = $_POST['datetime1'];
+    $checkindate = $_POST['date'];
+    $checkintime = $_POST['time'];
+
     global $wpdb;
     //var_dump($_POST);
     $table_name = "activity";
 
+   
+  
+   // $wpdb->query("UPDATE $table_name SET checkindate='$checkindate', checkintime='$checkintime'  WHERE name='$name'"); 
+   
+   
+   
     $wpdb -> insert($table_name,
         array(
             'name'   => $name,
-            'checkin' => $checkin,
+            'checkindate' => $checkindate,
+            'checkintime' => $checkintime,
             
             )
         );
 
-        //echo '<h2><script>alert("Successfully checked in")</script></h2>'; 
+        
         
         echo '<script type="text/javascript">';
         echo 'setTimeout(function () { swal("SUCCESS!","Successfully checked in","success");';
-        echo '}, 1000);</script>';
+        echo '}, 100);</script>';
       
-
-
 }
 
 
@@ -119,7 +137,8 @@ if (isset($_POST['checkout']))
 {
    
     $name = $_POST['name'];
-    $checkout = $_POST['datetime'];
+    $checkoutdate = $_POST['date1'];
+    $checkouttime = $_POST['time1'];
     //var_dump($_POST);
     global $wpdb;
   
@@ -127,13 +146,13 @@ if (isset($_POST['checkout']))
 
 
 
-    $wpdb->query("UPDATE $table_name SET checkout='$checkout'  WHERE name='$name'");
+    $wpdb->query("UPDATE $table_name SET checkoutdate='$checkoutdate', checkouttime='$checkouttime'  WHERE name='$name'");
 
 
         //echo '<h2><script>alert("Successfully checked out")</script></h2>';
         echo '<script type="text/javascript">';
         echo 'setTimeout(function () { swal("SUCCESS!","Successfully checked out","success");';
-        echo '}, 1000);</script>';
+        echo '}, 100);</script>';
 
 }
 
@@ -145,61 +164,11 @@ if (isset($_POST['checkout']))
 
 
 
-<?php
-//echo "Hello world";
 
-if (isset($_POST['activity']))
-    
- global $wpdb;
-    
- //$result = $wpdb->get_results("SELECT * FROM activity");
-
-$result = $wpdb->get_results("SELECT `name`, checkin, checkout, TIMESTAMPDIFF(HOUR,checkin, checkout) AS difference FROM activity");
- //SELECT id, departure, arrival, TIMESTAMPDIFF(SECOND, departure, arrival) AS difference FROM travel;
- ?>
-    <br><br>  
-<table class="table table-hover" id="table">
-    <div class="container">
- <thead class="heading">
-   <tr>
-    
-     
-     <th>Name</th>
-     <th>Check In Time</th>
-     <th>Check Out Time</th>
-     <th>Worked Hours</th>
-   </tr>
-   </thead>
-
-</div>
-
-   
-
-
-
-   <?php
-
- foreach ($result as $row) {
-     
- ?>
-<div class="container">
-
-<tr>
-   
-   <td><?php  echo $row->name;?></td>
-   <td><?php  echo $row->checkin;?></td>
-   <td><?php  echo $row->checkout;?></td>
-   <td><?php  echo $row->difference;?></td>
- </tr>
- 
- </div>
-<?php
- }
-
-?>
-
- </table>
-
- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>
 
 
