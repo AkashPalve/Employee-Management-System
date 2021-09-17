@@ -10,22 +10,21 @@ error_reporting(0);
             color: white;
              
           }
-          
-          <script
-  <script> type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-  
-  </script>
-  </script>
 
-          
-            </style>
-            <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/jquery.dataTables.css">
+          h2{
+            padding-top:20px;
+            
+          }
+
+          #displayname{
+            width:464px;
+            height:35px;
+          }
+          </style>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/dataTables.bootstrap4.min.css">
   
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
-  
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -49,9 +48,6 @@ error_reporting(0);
 //echo "this is view";
 
  
-  
-
-       
     global $wpdb;
     
     $result = $wpdb->get_results("SELECT * FROM wp_users");
@@ -73,11 +69,7 @@ error_reporting(0);
 
 
 
-      
-
-
-
-      <?php
+    <?php
 
     foreach ($result as $row) {
         
@@ -105,8 +97,6 @@ error_reporting(0);
 
 
 
-
-<!-- Button trigger modal -->
 
 
 <!--Edit Modal -->
@@ -139,7 +129,7 @@ error_reporting(0);
 
    <div class="mb-3">
     <label for="exampleInputdisplayname" class="form-label">Display Name</label>
-    <input type="text" class="form-control" id="display_name"  name="display_name" placeholder="">
+    <input type="text" class="form-control" id="displayname"  name="display_name" placeholder="">
    </div>
 
   <div class="mb-3">
@@ -254,18 +244,19 @@ echo '<h2><script>alert("user updated successfully")</script></h2>';
        // echo '<h2><script>alert("user deleted successfully")</script></h2>';
        echo '<script type="text/javascript">';
        echo 'setTimeout(function () { swal("SUCCESS!","User deleted successfully","success");';
-       echo '}, 1000);</script>';
+       echo '}, 100);</script>';
        
        echo '<script>window.location.reload()</script>';
 
     }
 
 ?>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<script> type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.11.2/js/dataTables.bootstrap4.min.js"></script>
+
 
 
 <script>
@@ -284,7 +275,7 @@ $(document).ready(function()
     $('#ID').val(data[0]);
     $('#user_login').val(data[1])
     $('#user_email').val(data[2]);
-    $('#display_name').val(data[3]);
+    $('#displayname').val(data[3]);
     $('#user_registered').val(data[4]);
   });
 });
@@ -312,28 +303,25 @@ $(document).ready(function()
 </script>
 
 
-<script>
-  $(function(){
-    $("#table").dataTable();
-  
-  })
-
-  var table = $('#table').dataTable({
-   "aLengthMenu": [ [2, 4, 8, -1], [2, 4, 8, "All"] ],
-   "iDisplayLength": 5,
 
 
+<script>            
 
-      
-});
-  </script>
+$(document).ready( function () {
+    $('#table').DataTable({
+      "pagingType" : "full_numbers",
+      "lengthMenu" : [
+          [5,10,25,50,-1],
+          [5,10,25,50,"All"]
+      ],
+      responsive : true,
+      language : {
+          search : "_INPUT_",
+          searchPlaceholder : "Search Records",
+      }
 
-<script>
-$(document).ready(function(){
-  $("#hello").onclick(function(){
-    $(this).hide();
-  });
-});
+    });
+} );
 </script>
 
 
