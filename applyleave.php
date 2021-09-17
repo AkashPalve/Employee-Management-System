@@ -59,16 +59,16 @@ h3{
 
   <div class="mb-3">
     <label for="exampleInputname" class="form-label">Name</label>
-    <input type="text" class="form1"  name="name" placeholder="Enter your name">
+    <input type="text" class="form1"  name="name" placeholder="Enter your name" required>
     </div>
  
  <div class="mb-3">
-    <label for="exampleInputpassword" class="form-label2">Employee ID</label>
-    <input type="number" class="form-control"  name="empid" placeholder="Enter your employee id">
+    <label for="exampleInputempid" class="form-label2">Employee ID</label>
+    <input type="number" class="form-control"  name="empid" placeholder="Enter your employee id" required>
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputemail" class="form-label3">Leave Type</label><br>
+    <label for="exampleInputleavetype" class="form-label3">Leave Type</label><br>
     <select id="sel" name="leavetype">
         <option value="select" id="">Select</option>
           <option value="paid leave">Paid leave</option>
@@ -78,13 +78,13 @@ h3{
    </div>
 
   <div class="mb-3">
-    <label for="exampleInputLeaveStart"  class="form-label4">Leave Start</label>
-    <input type="date" class="form-control" id="ls" name="leavestart" placeholder="">
+    <label for="exampleInputLeaveStart"  class="form-label4">Leave From</label>
+    <input type="date" class="form-control" id="ls" name="leavestart" placeholder="" required>
    </div>
 
    <div class="mb-3">
-    <label for="exampleInputLeaveEnd"  class="form-label4">Leave End</label>
-    <input type="date" class="form-control" id="le"  name="leaveend" placeholder="">
+    <label for="exampleInputLeaveEnd"  class="form-label4">Leave To</label>
+    <input type="date" class="form-control" id="le"  name="leaveend" placeholder="" required>
    </div>
 
 
@@ -115,6 +115,12 @@ if (isset($_POST['request']))
 
     global $wpdb;
 
+
+
+   // $wpdb->query("UPDATE $table_name SET empid='$emp_id', leavetype='$leavetype' , leavestart='$leavestart' , leaveend ='$leaveend'  WHERE name='$name'");
+    
+    
+
     $wpdb -> insert(leaveapply,
         array(
             'name' => $name,
@@ -129,7 +135,7 @@ if (isset($_POST['request']))
         //echo '<h2><script>alert("Successfully applied for leave")</script></h2>';  
         echo '<script type="text/javascript">';
         echo 'setTimeout(function () { swal("SUCCESS!","Successfully applied for leave","success");';
-        echo '}, 1000);</script>';
+        echo '}, 100);</script>';
 
 
 }
@@ -137,17 +143,11 @@ if (isset($_POST['request']))
 
 
 ?>
+
+
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
 
 
-<?php
-if (isset($_POST['login']))
-{
-  $name=$_POST['name'];
-  $email=$_POST['email'];
-  
-}
-?>
