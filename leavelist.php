@@ -1,6 +1,7 @@
 <html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 
 <style>
 body{
@@ -42,14 +43,16 @@ body{
 global $wpdb;
     
  $result = $wpdb->get_results("SELECT * FROM leaveapply");
+ 
  ?>
     <br><br>  
-<table class="table" id="table">
+<table class="table" id="table2">
  <thead>
    <tr>
 
-    <th>Employee ID</th>
+   
      <th>Name</th>
+     <th>Leave Applied on</th>
      <th>Status</th>
 
    </tr>
@@ -65,9 +68,15 @@ global $wpdb;
 
 <tbody>
 <tr>
-   <td><?php  echo $row->emp_id;?></td>
+   
    <td><?php  echo $row->name;?></td>
-   <td><?php  echo $row->status;?></td>
+   <td><?php echo $row->leave_start; ?></td>
+   <td><?php if($row->status==0) 
+   echo "Rejected";
+   else
+   {
+     echo "Accepted";
+   }?></td>
  </tr>
  </tbody> 
   
@@ -77,10 +86,33 @@ global $wpdb;
 ?>
 
  </table>
- <h5><b>Note<b></h5>
- <p> Status 0: Rejected</p>
- <p> Status 1: Accepted</p>
  
+
+
+
+ <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
+
+
+
+
+<script>            
+
+$(document).ready( function () {
+    $('#table2').DataTable({
+      "pagingType" : "full_numbers",
+      "lengthMenu" : [
+          [10,25,50,-1],
+          [10,25,50,"All"]
+      ],
+      responsive : true,
+      language : {
+          search : "_INPUT_",
+          searchPlaceholder : "Search Records",
+      }
+
+    });
+} );
+</script>
 </body>
 
  </html>
